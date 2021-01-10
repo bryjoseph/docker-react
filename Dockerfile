@@ -17,9 +17,11 @@ COPY . .
 RUN npm run build
 # This command produces a prod build folder within the WORKDIR of container
 
-
 # Run Phase: Second base image for production build of web app
 FROM nginx
+
+# In order to deploy successfully to AWS there must be an exposed port
+EXPOSE 80
 
 # Run Phase: Copy over folder from builder phase with from=0
 COPY --from=0 /app/build /usr/share/nginx/html
