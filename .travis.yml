@@ -1,0 +1,17 @@
+language: generic
+# config property
+
+# need super user permissions to run this build
+sudo: required
+
+# next must have docker
+services:
+  - docker
+
+# a series of steps before the project tests run (use Dockerfile)
+before_install:
+  - docker build -t bryjos44/docker-testing -f Dockerfile.dev .
+
+# all the different commands needed to run a test suite
+script:
+  - docker run -e CI=true bryjos44/docker-testing npm run test

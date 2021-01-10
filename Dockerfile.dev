@@ -1,0 +1,17 @@
+# Base image
+FROM node:alpine
+
+# Working directory to resolve node v15 build error
+WORKDIR '/app'
+
+# Copy over dependency file to working dir
+COPY package.json .
+
+# then install dependencies
+RUN npm install
+
+# AFTER installing dependencies THEN get source code
+COPY . .
+
+# Provide default command for container startup
+CMD ["npm", "run", "start"]
